@@ -1,0 +1,99 @@
+
+  <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse ">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="#">Products</a>
+
+      
+    </nav>
+
+        
+<div class="container">
+
+<p>
+    <h5>Welcome to online supermarket</h5>
+   
+    <hr>
+
+
+<ul class="list-unstyled video-list-thumbs row">
+  
+  <li *ngFor="let product of products" class="col-lg-3 col-sm-4 col-xs-6">
+		<a  title="Claudio Bravo, antes su debut con el Barça en la Liga">
+			<img src="./images/{{product.name}}.jpg" alt="Barca" class="img-responsive" height="130px" width="200px" />
+			<h2><font color="#32127A">{{product.name}}</font></h2>
+			<span class="glyphicon glyphicon-play-circle"></span>
+			<span class="duration"><font color="#32127A">{{product.price}} SP</font></span>
+    </a>
+     <div class="glyphicon glyphicon-play-circle">
+        <div class="pull-right">
+        <a href="#" class="btn btn-danger
+         btn-sm"  role="button" (click)="getItem(product.name)" *ngIf="(product.quantity>0)&&(!checkedOut)">Add</a>
+       
+          <a *ngIf="(cart.indexOf(product)!==-1)&&(!checkedOut)" href="#" class="btn btn-danger
+         btn-sm" role="button" (click)="removeItem(product.name)">remove</a>
+      
+        </div>
+     </div>
+    
+  </li>
+  </ul>
+
+  <button  *ngIf="(!checkedOut) && (cart.length>0)" type="button"  class="btn btn-success" (click)="clearCart()" >clear cart</button>
+    
+<button (click)="makeBill()" *ngIf="(cart.length>0)" type="button" class="btn btn-danger">checkout</button>
+
+</div>
+
+
+
+
+<div *ngIf="checkedOut" class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-info">
+                Bill date is     {{getBillDate()}}</div>
+            <div class="alert alert-success" style="display:none;">
+                <span class="glyphicon glyphicon-ok"></span> Drag table row and cange Order</div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                          product name
+                        </th>
+                        <th>
+                            Unit Price
+                        </th>
+                        <th>
+                           quantity
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr  *ngFor="let p of billProducts ; let i=index " class="active">
+                         <td>{{p.name}}</td>
+  <td>{{p.price}}</td>
+  <td>{{nofItems[i]}}</td>
+  
+                    </tr>
+<div class="alert alert-info">
+                Total is : {{total}} </div>
+              
+                </tbody>
+            </table>
+            <button (click)="anotherBill()"  type="button" class="btn btn-danger">MAke Another Bill</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
